@@ -1,0 +1,36 @@
+package com.example.springmart.model;
+
+import com.example.springmart.Enum.CardType;
+import jakarta.persistence.*;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+
+import java.util.Date;
+
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+@FieldDefaults(level = AccessLevel.PRIVATE)
+@Table(name = "card")
+@Builder
+public class Card {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    int id;
+
+    @Column(unique = true,nullable = false)
+    String cardNo;
+
+    int cvv;
+
+    @Enumerated(EnumType.STRING)
+    CardType cardType;
+
+    Date validTill;
+
+    @ManyToOne
+    @JoinColumn
+    Customer customer;
+}
